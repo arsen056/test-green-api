@@ -1,15 +1,17 @@
 import React from 'react'
 
+import { useSelector } from 'react-redux'
 import { Navigate, Route, Routes } from 'react-router-dom'
 
-import { privateRoutes, publicRoutes } from 'utils/routes'
+import { selectStateInstance } from 'app/selectors/selectStateInstance'
+import { privateRoutes, publicRoutes } from 'components/appRouter/routes'
 
 export const AppRouter = () => {
-  const user = false
+  const stateInstance = useSelector(selectStateInstance)
 
-  return user ? (
+  return stateInstance === 'authorized' ? (
     <Routes>
-      <Route path='/' element={<Navigate to='/chat' />} />
+      <Route path='/*' element={<Navigate to='/chat' />} />
       {privateRoutes.map(({ path, Component }) => (
         <Route key={path} path={path} element={<Component />} />
       ))}
