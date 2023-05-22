@@ -5,13 +5,18 @@ import thunk from 'redux-thunk'
 
 import { appReducer } from 'slices/appSlice'
 import { authReducer } from 'slices/authSlice'
+import { chatReducer } from 'slices/chatSlice'
 
 const persistConfig = {
   key: 'auth',
   storage,
 }
 
-const rootReducer = combineReducers({ app: appReducer, auth: persistReducer(persistConfig, authReducer) })
+const rootReducer = combineReducers({
+  app: appReducer,
+  auth: persistReducer(persistConfig, authReducer),
+  chats: chatReducer,
+})
 
 export type RootStateType = ReturnType<typeof rootReducer>
 

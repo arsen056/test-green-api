@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { useSelector } from 'react-redux'
-import { Navigate, Route, Routes } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 
 import { selectStateInstance } from 'app/selectors/selectStateInstance'
 import { privateRoutes, publicRoutes } from 'components/appRouter/routes'
@@ -11,17 +11,17 @@ export const AppRouter = () => {
 
   return stateInstance === 'authorized' ? (
     <Routes>
-      <Route path='/*' element={<Navigate to='/chat' />} />
       {privateRoutes.map(({ path, Component }) => (
         <Route key={path} path={path} element={<Component />} />
       ))}
+      <Route path='/*' element={<h2>404</h2>} />
     </Routes>
   ) : (
     <Routes>
-      <Route path='/*' element={<Navigate to='/login' />} />
       {publicRoutes.map(({ path, Component }) => (
         <Route key={path} path={path} element={<Component />} />
       ))}
+      <Route path='/*' element={<h2>404</h2>} />
     </Routes>
   )
 }
